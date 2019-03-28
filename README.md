@@ -17,3 +17,11 @@ docker run -it 5be6e36ace70 npm run test
 
 #start docker-compose
 docker-compose up
+
+## ways to run tests and auto pick up changes
+## 1) run docker-compose up with volumes:
+docker-compose up
+## from a second terminal find process id:
+docker ps
+## attach to the process:
+docker exec -it 23334444455 npm run test
