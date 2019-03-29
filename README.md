@@ -12,6 +12,8 @@ docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app 03939383heg0
 #CMD ["npm", "run", "start"]
  docker run 5be6e36ace70 npm run test
 
+# run tests and exit
+docker run test -- --coverage
 # use -it to get a test run menu
 docker run -it 5be6e36ace70 npm run test
 
