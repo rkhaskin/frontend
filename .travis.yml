@@ -1,0 +1,11 @@
+# tell Travis we need a copy of docker running
+sudo: required
+services:
+  - docker
+# build our image using Dockerfile.dev
+before_install:
+  - docker build -t rkhaskin/frontend -f Dockerfile.dev .
+# tell travis to run test suite
+script:
+  - docker run rkhaskin/frontend npm run test  -- --coverage
+# tell travis how to deploy to AWS

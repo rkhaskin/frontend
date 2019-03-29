@@ -1,0 +1,32 @@
+version: '3'
+# list of services (containers) that are going to be created when we run 
+# docker-compose
+services:
+  # container responsible for running services
+  web:
+    # specify docker file to nuild initial container. 
+    # Default is Dockerfile
+    ### build . ### use this when Dockerfile is used
+    build:
+      # context specifies where we want files and folders for the image 
+      # to be pulled from
+      context: . #current folder
+      dockerfile: Dockerfile.dev
+    ports:
+      # outside:inside
+      - "3000:3000"
+    volumes:
+      # use folder inside container only
+      - /app/node_modules
+      # map folder outside of container (.) to folder inside container (/app)
+      # . means current directory
+      - .:/app 
+  # container responsible for running tests     
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"] 

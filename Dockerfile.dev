@@ -1,0 +1,17 @@
+FROM node:alpine
+
+# define current working directory
+WORKDIR '/app'
+
+#copy package.json into current working directory
+COPY package.json .
+
+RUN npm install
+
+# copy from current project directory to current working dir in the container
+# useful to have even if called from docker-compose. We might want to all 
+# it from docker. (in yml we map to outside folder, so technically this 
+# step in not required)
+COPY . .
+
+CMD ["npm", "run", "start"]
