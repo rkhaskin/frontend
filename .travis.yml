@@ -9,3 +9,20 @@ before_install:
 script:
   - docker run rkhaskin/frontend npm run test  -- --coverage
 # tell travis how to deploy to AWS
+
+deploy:
+  provider: elasticbeanstalk
+  # comes from aws: Docker-env.mnpamfx9pv.us-east-1.elasticbeanstalk.com 
+  region: "us-east-1"
+  app: "docker"
+  env: "Docker-env"
+  # harddrive space on aws. Go to S3 and find the bucket there
+  bucket_name: "elasticbeanstalk-us-east-1-687378713160"
+  # same as app
+  bucket_path: "docker"
+  on: 
+    # only when we put the code to branch master then deploy
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
